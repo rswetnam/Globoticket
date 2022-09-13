@@ -25,16 +25,6 @@ namespace Globoticket.Web.Pages
             };
         }
 
-        public IActionResult OnGetSetCulture(string cultureName)
-        {
-            var culture = new RequestCulture(cultureName);
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(culture));
-
-            return RedirectToPage("Index");
-        }
-
         public readonly record struct Category(string Description, double Price);
 
         public readonly record struct MessageInfo(int NumberTickets, string PluralSuffix, double TotalAmount, string DateString);
