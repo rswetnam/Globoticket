@@ -1,0 +1,22 @@
+﻿@page
+@model _LanguagePickerModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+
+@inject IOptions<RequestLocalizationOptions> LocalizationOptions
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var RequestCultureInfo = HttpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
+}
+
+<div class="mt-3 mb-3">
+    @foreach (var culture in LocalizationOptions.Value.SupportedCultures)
+    {
+        <a href="~/SetLanguage?cultureName=@culture" class="text-decoration-none">
+            <span class="badge rounded-pill 
+            @((culture.ToString() == RequestCultureInfo?.RequestCulture.Culture.ToString()) ? 
+                "bg-primary" : "bg-info text-dark")">@culture</span>
+        </a>
+    }
+</div>
